@@ -6,12 +6,12 @@ import Widget from '../components/Widget'
 
 const Home: NextPage = () => {
   return (
-    <div className="">
+    <div className="mx-auto max-h-screen overflow-hidden lg:max-w-6xl">
       <Head>
         <title>JAK Twitter Clone 3</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="">
+      <main className="grid grid-cols-9">
         <Sidebar />
         <Feed />
         <Widget />
