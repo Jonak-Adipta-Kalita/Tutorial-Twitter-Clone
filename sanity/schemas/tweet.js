@@ -27,7 +27,7 @@ export default {
     {
       name: 'image',
       title: 'Tweet image',
-      string: 'string',
+      type: 'string',
     },
   ],
 }
