@@ -1,10 +1,12 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Feed from '../components/Feed'
 import Sidebar from '../components/SIdebar'
 import Widget from '../components/Widget'
+import { Tweet } from '../typings'
+import fetchTweets from '../utils/fetchTweets'
 
-const Home: NextPage = () => {
+const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
   return (
     <div className="mx-auto max-h-screen overflow-hidden lg:max-w-6xl">
       <Head>
@@ -13,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="grid grid-cols-9">
         <Sidebar />
-        <Feed />
+        <Feed tweets={tweets} />
         <Widget />
       </main>
     </div>
@@ -21,3 +23,13 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const tweets = fetchTweets()
+
+  return {
+    props: {
+      tweets,
+    },
+  }
+}
