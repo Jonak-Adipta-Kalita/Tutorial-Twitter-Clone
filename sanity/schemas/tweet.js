@@ -20,7 +20,7 @@ export default {
       type: 'string',
     },
     {
-      name: 'profileImage',
+      name: 'profileImg',
       title: 'Profile image',
       type: 'string',
     },

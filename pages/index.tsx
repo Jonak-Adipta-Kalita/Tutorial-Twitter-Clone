@@ -25,7 +25,7 @@ const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const tweets = fetchTweets()
+  const tweets = await fetchTweets()
 
   return {
     props: {
