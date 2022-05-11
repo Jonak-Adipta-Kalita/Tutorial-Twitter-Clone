@@ -5,7 +5,7 @@ import Sidebar from '../components/SIdebar'
 import Widget from '../components/Widget'
 import { Tweet } from '../typings'
 import fetchTweets from '../utils/fetchTweets'
-import Toaster from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
   return (
