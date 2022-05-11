@@ -5,6 +5,7 @@ import Sidebar from '../components/SIdebar'
 import Widget from '../components/Widget'
 import { Tweet } from '../typings'
 import fetchTweets from '../utils/fetchTweets'
+import Toaster from 'react-hot-toast'
 
 const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
         <title>JAK Twitter Clone 3</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Toaster />
       <main className="grid grid-cols-9">
         <Sidebar />
         <Feed tweets={tweets} />

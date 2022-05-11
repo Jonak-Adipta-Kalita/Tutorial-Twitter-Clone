@@ -5,13 +5,16 @@ import TweetComponent from './Tweet'
 import { NextPage } from 'next'
 import fetchTweets from '../utils/fetchTweets'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const Feed: NextPage<{ tweets: Tweet[] }> = ({ tweets: tweetsProp }) => {
   const [tweets, setTweets] = useState<Tweet[]>(tweetsProp)
 
   const handleRefresh = async () => {
+    const refreshToast = toast.loading('Refreshing...')
     const tweets = await fetchTweets()
     setTweets(tweets)
+    toast.success('Feed is Updated!!', { id: refreshToast })
   }
 
   return (
