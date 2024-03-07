@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Feed from '../components/Feed'
-import Sidebar from '../components/SIdebar'
+import Sidebar from '../components/Sidebar'
 import Widget from '../components/Widget'
 import { Tweet } from '../typings'
 import fetchTweets from '../utils/fetchTweets'
@@ -15,7 +15,7 @@ const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster />
-      <main className="grid grid-cols-9">
+      <main className="grid grid-cols-10">
         <Sidebar />
         <Feed tweets={tweets} />
         <Widget />
@@ -26,7 +26,7 @@ const Home: NextPage<{ tweets: Tweet[] }> = ({ tweets }) => {
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const tweets = await fetchTweets()
 
   return {
