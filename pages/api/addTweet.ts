@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { TweetBody } from '../../typings'
 
 type Data = {
-  name: string
+  message: string
 }
 
 export default async function handler(
@@ -37,5 +37,5 @@ export default async function handler(
 
   const json = await result.json()
 
-  res.status(201)
+  res.status(201).json({message: "Wahoo!!"})
 }
