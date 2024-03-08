@@ -83,7 +83,12 @@ const TweetBox = () => {
               </button>
             </form>
           )}
-		  {image && <img className='mt-10 h-40 w-full rounded-xl object-contain' src={image} />}
+          {image && (
+            <img
+              className="mt-10 h-40 w-full rounded-xl object-contain"
+              src={image}
+            />
+          )}
         </form>
       </div>
     </div>
