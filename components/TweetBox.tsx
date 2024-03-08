@@ -5,21 +5,37 @@ import {
   PhotographIcon,
   SearchCircleIcon,
 } from '@heroicons/react/outline'
-import {useSession} from 'next-auth/react'
-import { FormEvent, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { FormEvent, useRef, useState } from 'react'
 
 const TweetBox = () => {
-  const [input, setInput] = useState<string>('')
   const { data: session } = useSession()
+
+  const [input, setInput] = useState<string>('')
+  const [image, setImage] = useState<string>('')
+
+  const [ImageUrlBoxIsOpen, setIsImageUrlBoxIsOpen] = useState<boolean>(false)
+  const imgInputRef = useRef<HTMLInputElement>(null)
 
   const tweet = (e: FormEvent) => {
     e.preventDefault()
   }
 
+  const addImageToTweet = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+    if (!imgInputRef.current?.value) return
+
+    setImage(imgInputRef.current.value)
+    imgInputRef.current.value = ''
+    setIsImageUrlBoxIsOpen(false)
+  }
+
   return (
     <div className="flex space-x-2 p-5">
       <img
-		src={session?.user?.image || "https://links.papareact.com/gll"}
+        src={session?.user?.image || 'https://links.papareact.com/gll'}
         alt=""
         className="mt-4 h-14 w-14 rounded-full object-cover"
       />
@@ -34,7 +50,10 @@ const TweetBox = () => {
           />
           <div className="flex items-center">
             <div className="flex flex-1 space-x-2 text-twitter">
-              <PhotographIcon className="tweetBoxIcons" />
+              <PhotographIcon
+                className="tweetBoxIcons"
+                onClick={() => setIsImageUrlBoxIsOpen(!ImageUrlBoxIsOpen)}
+              />
               <SearchCircleIcon className="tweetBoxIcons" />
               <EmojiHappyIcon className="tweetBoxIcons" />
               <CalendarIcon className="tweetBoxIcons" />
@@ -48,6 +67,23 @@ const TweetBox = () => {
               Tweet
             </button>
           </div>
+          {ImageUrlBoxIsOpen && (
+            <form className="mt-5 flex rounded-lg bg-twitter/80 py-2 px-4">
+              <input
+                className="flex-1 bg-transparent p-2 text-white outline-none placeholder:text-white"
+                type="ref"
+                placeholder="Enter Image Url..."
+                ref={imgInputRef}
+              />
+              <button
+                className="flex-bold text-white"
+                onClick={addImageToTweet}
+              >
+                Add Image
+              </button>
+            </form>
+          )}
+		  {image && <img className='mt-10 h-40 w-full rounded-xl object-contain' src={image} />}
         </form>
       </div>
     </div>
