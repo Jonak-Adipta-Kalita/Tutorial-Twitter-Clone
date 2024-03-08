@@ -6,9 +6,16 @@ import {
   SearchCircleIcon,
 } from '@heroicons/react/outline'
 import { useSession } from 'next-auth/react'
-import { FormEvent, useRef, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react'
+import { Tweet, TweetBody } from '../typings'
+import fetchTweets from '../utils/fetchTweets'
+import toast from 'react-hot-toast'
 
-const TweetBox = () => {
+const TweetBox = ({
+  setTweets,
+}: {
+  setTweets: Dispatch<SetStateAction<Tweet[]>>
+}) => {
   const { data: session } = useSession()
 
   const [input, setInput] = useState<string>('')
@@ -17,8 +24,30 @@ const TweetBox = () => {
   const [ImageUrlBoxIsOpen, setIsImageUrlBoxIsOpen] = useState<boolean>(false)
   const imgInputRef = useRef<HTMLInputElement>(null)
 
-  const tweet = (e: FormEvent) => {
+  const tweet = async (e: FormEvent) => {
     e.preventDefault()
+
+    const tweetInfo: TweetBody = {
+      text: input,
+      username: session?.user?.name || 'Unknown User',
+      profileImg: session?.user?.image || 'https://links.papareact.com/gll',
+      image,
+    }
+
+    const result = await fetch('/api/addTweet', {
+      body: JSON.stringify(tweetInfo),
+      method: 'POST',
+    })
+
+    const json = await result.json()
+    const newTweets = await fetchTweets()
+    setTweets(newTweets)
+
+    toast('Tweet Posted!', { icon: '🚀' })
+
+    setInput('')
+    setImage('')
+    setIsImageUrlBoxIsOpen(false)
   }
 
   const addImageToTweet = (

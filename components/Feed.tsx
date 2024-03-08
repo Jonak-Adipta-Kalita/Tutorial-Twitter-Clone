@@ -27,7 +27,7 @@ const Feed: NextPage<{ tweets: Tweet[] }> = ({ tweets: tweetsProp }) => {
         />
       </div>
       <div className="">
-        <TweetBox />
+        <TweetBox setTweets={setTweets} />
       </div>
       <div className="">
         {tweets.map((tweet) => (
