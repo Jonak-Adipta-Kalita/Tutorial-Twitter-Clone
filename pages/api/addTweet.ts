@@ -37,5 +37,5 @@ export default async function handler(
 
   const json = await result.json()
 
-  res.status(201).json({message: "Wahoo!!"})
+  res.status(201).json({ message: 'Wahoo!!' })
 }
